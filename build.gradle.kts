@@ -31,6 +31,7 @@ val dotenvJavaVer = "3.0.2"
 val mapstructVer = "1.6.0"
 val hibernateValidatorVer = "8.0.1.Final"
 val jakartaValidationVer = "3.1.0"
+val liquibaseVer = "4.29.2"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springVer")
@@ -44,9 +45,11 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:$lombokVer")
 	annotationProcessor("org.projectlombok:lombok")
 	implementation("org.mapstruct:mapstruct:$mapstructVer")
-	implementation("org.mapstruct:mapstruct-processor:$mapstructVer")
+	annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer")
 	implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVer")
 	implementation("jakarta.validation:jakarta.validation-api:$jakartaValidationVer")
+//	implementation("org.liquibase:liquibase-core:$liquibaseVer")
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

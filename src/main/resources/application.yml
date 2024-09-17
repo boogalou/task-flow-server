@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   datasource:
     url: ${DB_URL}
@@ -5,9 +8,15 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+  #      data-locations: classpath:
+
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -15,15 +24,7 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  flyway:
-      baseline-on-migrate: true
-      schemas: migrations
-      locations: classpath:db/migration
-
-logging:
-  level:
-    org:
-      springframework:
-        web:
-          servlet:
-            DispatcherServlet: debug
+    #  liquibase:
+    #    change-log: classpath:liquibase/db.changelog.yaml
+    #    enabled: true
+    #    default-schema: taskflow_schema
