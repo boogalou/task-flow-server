@@ -32,6 +32,7 @@ val mapstructVer = "1.6.0"
 val hibernateValidatorVer = "8.0.1.Final"
 val jakartaValidationVer = "3.1.0"
 val liquibaseVer = "4.29.2"
+val jjwtVer = "0.12.6"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springVer")
@@ -39,6 +40,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security:$springVer")
 	implementation("org.springframework.boot:spring-boot-starter-web:$springVer")
 	developmentOnly("org.springframework.boot:spring-boot-devtools:$springVer")
+	implementation("org.springframework.boot:spring-boot-configuration-processor:$springVer")
+
+//	jjwt
+	implementation ("io.jsonwebtoken:jjwt-api:$jjwtVer")
+	implementation ("io.jsonwebtoken:jjwt-impl:$jjwtVer")
+	implementation ("io.jsonwebtoken:jjwt-jackson:$jjwtVer")
+
 
 	runtimeOnly("org.postgresql:postgresql:$postgresqlVer")
 	implementation("io.github.cdimascio:dotenv-java:$dotenvJavaVer")

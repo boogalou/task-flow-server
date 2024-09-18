@@ -17,7 +17,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -28,3 +28,10 @@ spring:
     #    change-log: classpath:liquibase/db.changelog.yaml
     #    enabled: true
     #    default-schema: taskflow_schema
+
+
+security:
+  jwt:
+    secret: ${JWT_ACCESS_SECRET}
+    access: 3600000
+    refresh: 2592000000
