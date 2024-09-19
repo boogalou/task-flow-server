@@ -3,7 +3,7 @@ package su.tomcat.taskflow.web.dto.auth;
 import lombok.Data;
 
 @Data
-public class LoginResponse {
+public class LoginResponseDto {
   private Long id;
   private String username;
   private String email;

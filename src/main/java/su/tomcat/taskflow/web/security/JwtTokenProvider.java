@@ -15,7 +15,7 @@ import su.tomcat.taskflow.domain.user.Role;
 import su.tomcat.taskflow.domain.user.UserEntity;
 import su.tomcat.taskflow.service.UserService;
 import su.tomcat.taskflow.service.props.JwtProperties;
-import su.tomcat.taskflow.web.dto.auth.JwtResponse;
+import su.tomcat.taskflow.web.dto.auth.JwtResponseDto;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -74,8 +74,8 @@ public class JwtTokenProvider {
         .compact();
   }
 
-  public JwtResponse refreshTokens(String refreshToken) {
-    JwtResponse jwtResponse = new JwtResponse();
+  public JwtResponseDto refreshTokens(String refreshToken) {
+    JwtResponseDto jwtResponseDto = new JwtResponseDto();
 
     if (!validateToken(refreshToken)) {
       throw new AccessDeniedException();
@@ -84,10 +84,10 @@ public class JwtTokenProvider {
     Long userId = Long.valueOf(getId(refreshToken));
     UserEntity user = userService.getById(userId);
 
-    jwtResponse.setAccessToken(createAccessToken(user.getId(), user.getEmail(), user.getRoles()));
-    jwtResponse.setRefreshToken(createRefreshToken(user.getId(), user.getEmail()));
+    jwtResponseDto.setAccessToken(createAccessToken(user.getId(), user.getEmail(), user.getRoles()));
+    jwtResponseDto.setRefreshToken(createRefreshToken(user.getId(), user.getEmail()));
 
-    return jwtResponse;
+    return jwtResponseDto;
   }
 
   public boolean validateToken(String token) {
