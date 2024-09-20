@@ -1,39 +1,70 @@
 package su.tomcat.taskflow.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import org.springframework.transaction.annotation.Transactional;
+import su.tomcat.taskflow.domain.exception.ResourceNotFoundException;
+import su.tomcat.taskflow.domain.user.Role;
+import su.tomcat.taskflow.domain.user.User;
+import su.tomcat.taskflow.repository.UserRepository;
 import su.tomcat.taskflow.service.UserService;
 
+import java.util.Set;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
+
   @Override
-  public UserEntity getById(Long userId) {
-    return null;
+  @Transactional(readOnly = true)
+  public User getById(Long userId) {
+    return userRepository.findById(userId)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 
   @Override
-  public UserEntity getByEmail(String email) {
-    return null;
+  @Transactional(readOnly = true)
+  public User getByEmail(String email) {
+    return userRepository.findByEmail(email)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 
   @Override
-  public UserEntity update(UserEntity user) {
-    return null;
+  @Transactional
+  public User update(User user) {
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    userRepository.update(user);
+    return user;
   }
 
   @Override
-  public UserEntity create(UserEntity user) {
-    return null;
+  @Transactional
+  public User create(User user) {
+    if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+      throw new IllegalStateException("User already exists");
+    };
+
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    userRepository.create(user);
+    Set<Role> roles = Set.of(Role.ROLE_USER);
+    userRepository.insertUserRole(user.getId(), Role.ROLE_USER);
+    user.setRoles(roles);
+    return user;
   }
 
   @Override
+  @Transactional
   public void delete(Long userId) {
-
+    userRepository.delete(userId);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public boolean isTaskOwner(Long userId, Long taskId) {
-    return false;
+   return userRepository.isTaskOwner(userId, taskId);
   }
 }

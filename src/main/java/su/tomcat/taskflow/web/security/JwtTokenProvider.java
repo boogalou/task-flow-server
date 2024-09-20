@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import su.tomcat.taskflow.domain.exception.AccessDeniedException;
 import su.tomcat.taskflow.domain.user.Role;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 import su.tomcat.taskflow.service.UserService;
 import su.tomcat.taskflow.service.props.JwtProperties;
 import su.tomcat.taskflow.web.dto.auth.JwtResponseDto;
@@ -82,7 +82,7 @@ public class JwtTokenProvider {
     }
 
     Long userId = Long.valueOf(getId(refreshToken));
-    UserEntity user = userService.getById(userId);
+    User user = userService.getById(userId);
 
     jwtResponseDto.setAccessToken(createAccessToken(user.getId(), user.getEmail(), user.getRoles()));
     jwtResponseDto.setRefreshToken(createRefreshToken(user.getId(), user.getEmail()));

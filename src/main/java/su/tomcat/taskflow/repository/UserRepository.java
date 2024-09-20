@@ -1,19 +1,19 @@
 package su.tomcat.taskflow.repository;
 
 import su.tomcat.taskflow.domain.user.Role;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 
 import java.util.Optional;
 
 public interface UserRepository {
 
-  Optional<UserEntity> findById(Long id);
+  Optional<User> findById(Long id);
 
-  Optional<UserEntity> findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
-  void update(UserEntity user);
+  void update(User user);
 
-  void create(UserEntity user);
+  void create(User user);
 
   void insertUserRole(Long userId, Role role);
 

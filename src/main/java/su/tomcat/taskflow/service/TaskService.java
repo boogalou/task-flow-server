@@ -1,18 +1,18 @@
 package su.tomcat.taskflow.service;
 
-import su.tomcat.taskflow.domain.task.TaskEntity;
+import su.tomcat.taskflow.domain.task.Task;
 
 import java.util.List;
 
 public interface TaskService {
 
-  TaskEntity getById(Long taskId);
+  Task getById(Long taskId);
 
-  List<TaskEntity> getAllByUserId(Long userId);
+  List<Task> getAllByUserId(Long userId);
 
-  TaskEntity update(TaskEntity task);
+  Task update(Task task);
 
-  TaskEntity create(TaskEntity task, Long userId);
+  Task create(Task task, Long userId);
 
   void delete(Long taskId);
 

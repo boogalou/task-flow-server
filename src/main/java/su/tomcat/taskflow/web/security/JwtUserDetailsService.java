@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 import su.tomcat.taskflow.service.UserService;
 
 @Service
@@ -17,7 +17,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity user = userService.getByEmail(username);
+    User user = userService.getByEmail(username);
     return JwtEntityFactory.create(user);
   }
 }

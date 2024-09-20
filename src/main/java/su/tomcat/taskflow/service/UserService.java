@@ -1,16 +1,16 @@
 package su.tomcat.taskflow.service;
 
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 
 public interface UserService {
 
-  UserEntity getById(Long userId);
+  User getById(Long userId);
 
-  UserEntity getByEmail(String email);
+  User getByEmail(String email);
 
-  UserEntity update(UserEntity user);
+  User update(User user);
 
-  UserEntity create(UserEntity user);
+  User create(User user);
 
   boolean isTaskOwner(Long userId, Long taskId);
 

@@ -6,14 +6,14 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Table(name = "tasks")
-public class TaskEntity {
+public class Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +47,5 @@ public class TaskEntity {
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-  private UserEntity user;
+  private User user;
 }

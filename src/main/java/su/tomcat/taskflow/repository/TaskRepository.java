@@ -1,21 +1,21 @@
 package su.tomcat.taskflow.repository;
 
-import su.tomcat.taskflow.domain.task.TaskEntity;
+import su.tomcat.taskflow.domain.task.Task;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TaskRepository {
 
-  Optional<TaskEntity> findById(Long id);
+  Optional<Task> findById(Long id);
 
-  List<TaskEntity> findAllByUserId(Long userId);
+  List<Task> findAllByUserId(Long userId);
 
   void assignToUserById(Long taskId, Long userId);
 
-  void update(TaskEntity task);
+  void update(Task task);
 
-  void create(TaskEntity task);
+  void create(Task task);
 
   void delete(Long taskId);
 

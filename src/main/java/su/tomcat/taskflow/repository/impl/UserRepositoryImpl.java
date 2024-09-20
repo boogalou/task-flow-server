@@ -2,7 +2,7 @@ package su.tomcat.taskflow.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import su.tomcat.taskflow.domain.user.Role;
-import su.tomcat.taskflow.domain.user.UserEntity;
+import su.tomcat.taskflow.domain.user.User;
 import su.tomcat.taskflow.repository.UserRepository;
 
 import java.util.Optional;
@@ -10,12 +10,12 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
   @Override
-  public Optional<UserEntity> findById(Long id) {
+  public Optional<User> findById(Long id) {
     return Optional.empty();
   }
 
   @Override
-  public Optional<UserEntity> findByEmail(String email) {
+  public Optional<User> findByEmail(String email) {
     return Optional.empty();
   }
 
@@ -30,12 +30,12 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
-  public void create(UserEntity user) {
+  public void create(User user) {
 
   }
 
   @Override
-  public void update(UserEntity user) {
+  public void update(User user) {
 
   }
 
