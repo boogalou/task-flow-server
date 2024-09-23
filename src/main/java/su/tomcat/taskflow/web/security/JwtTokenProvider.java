@@ -2,6 +2,7 @@ package su.tomcat.taskflow.web.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -92,14 +93,19 @@ public class JwtTokenProvider {
   }
 
   private boolean validateToken(String token, SecretKey secretKey) {
-    Claims claims = Jwts.parser()
-        .verifyWith(secretKey)
-        .build()
-        .parseSignedClaims(token)
-        .getPayload();
+    try {
+      Claims claims = Jwts.parser()
+          .verifyWith(secretKey)
+          .build()
+          .parseSignedClaims(token)
+          .getPayload();
 
-    return !claims.getExpiration()
-        .before(new Date());
+      return !claims.getExpiration()
+          .before(new Date());
+    } catch (JwtException | IllegalArgumentException err) {
+      System.out.println(err.getMessage());
+      return false;
+    }
   }
 
   public Authentication getAuthentication(String token) {

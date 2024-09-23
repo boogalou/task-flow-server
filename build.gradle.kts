@@ -56,7 +56,7 @@ dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVer")
 	implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVer")
 	implementation("jakarta.validation:jakarta.validation-api:$jakartaValidationVer")
-//	implementation("org.liquibase:liquibase-core:$liquibaseVer")
+	implementation("org.liquibase:liquibase-core:$liquibaseVer")
 
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

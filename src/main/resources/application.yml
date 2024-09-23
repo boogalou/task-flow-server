@@ -10,24 +10,24 @@ spring:
 
   sql:
     init:
-      mode: always
+      mode: never
       continue-on-error: false
   #      data-locations: classpath:
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-    #  liquibase:
-    #    change-log: classpath:liquibase/db.changelog.yaml
-    #    enabled: true
-    #    default-schema: taskflow_schema
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yml
+    enabled: true
+    default-schema: taskflow_schema
 
 
 security:
