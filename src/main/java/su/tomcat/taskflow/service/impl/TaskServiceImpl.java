@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import su.tomcat.taskflow.domain.exception.ResourceNotFoundException;
 import su.tomcat.taskflow.domain.task.Task;
+import su.tomcat.taskflow.domain.user.User;
 import su.tomcat.taskflow.repository.TaskRepository;
 import su.tomcat.taskflow.service.TaskService;
+import su.tomcat.taskflow.service.UserService;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
   private final TaskRepository taskRepository;
+  private final UserService userService;
 
 
   @Override
@@ -33,21 +36,22 @@ public class TaskServiceImpl implements TaskService {
   @Override
   @Transactional
   public Task update(Task task) {
-    taskRepository.update(task);
+    taskRepository.save(task);
     return task;
   }
 
   @Override
   @Transactional
   public Task create(Task task, Long userId) {
-    taskRepository.create(task);
-    taskRepository.assignToUserById(task.getId(), userId);
+    User user = userService.getById(userId);
+    user.getTasks().add(task);
+    userService.update(user);
     return task;
   }
 
   @Override
   @Transactional
   public void delete(Long taskId) {
-    taskRepository.delete(taskId);
+    taskRepository.deleteById(taskId);
   }
 }

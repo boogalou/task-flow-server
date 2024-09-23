@@ -25,7 +25,7 @@ public class JwtTokenFilter extends GenericFilterBean {
       bearerToken.substring(7);
     }
 
-    if (bearerToken != null && jwtTokenProvider.validateToken(bearerToken)) {
+    if (bearerToken != null && jwtTokenProvider.validateAccessToken(bearerToken)) {
       try {
         Authentication authentication = jwtTokenProvider.getAuthentication(bearerToken);
 
@@ -34,6 +34,8 @@ public class JwtTokenFilter extends GenericFilterBean {
         }
       } catch (ResourceNotFoundException ignored) {}
     }
+
+    filterChain.doFilter(servletRequest, servletResponse);
   }
 
 }

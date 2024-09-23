@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Data
 public class TaskDto {
 
+  private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
   @NotNull(message = "ID must be not null", groups = OnUpdate.class)
   private Long id;
 
@@ -26,8 +28,14 @@ public class TaskDto {
   private String category;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+  @JsonFormat(pattern = DATE_PATTERN)
   private LocalDateTime dueDate;
+
+  @JsonFormat(pattern = DATE_PATTERN)
+  private LocalDateTime createdAt;
+
+  @JsonFormat(pattern = DATE_PATTERN)
+  private LocalDateTime updatedAt;
 
   private boolean isCompleted;
 }

@@ -9,13 +9,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import su.tomcat.taskflow.service.AuthService;
 import su.tomcat.taskflow.service.UserService;
-import su.tomcat.taskflow.web.dto.auth.*;
+import su.tomcat.taskflow.web.dto.auth.AuthResponseDto;
+import su.tomcat.taskflow.web.dto.auth.JwtResponseDto;
+import su.tomcat.taskflow.web.dto.auth.LoginRequestDto;
 import su.tomcat.taskflow.web.dto.user.UserDto;
 import su.tomcat.taskflow.web.mappers.UserMapper;
 import su.tomcat.taskflow.web.security.JwtTokenProvider;
 import su.tomcat.taskflow.web.validation.OnCreate;
 
-@RestController()
+@RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Validated
@@ -28,23 +30,26 @@ public class AuthController {
 
   @PostMapping("/registration")
   public ResponseEntity<Void> registration(@Validated(OnCreate.class) @RequestBody UserDto userDto) {
+    System.out.println(userDto);
     userService.create(userMapper.toEntity(userDto));
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponseDto> login(@Validated @RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-    LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
-    String refreshToken = jwtTokenProvider.createRefreshToken(loginResponseDto.getId(), loginResponseDto.getEmail());
+  public ResponseEntity<AuthResponseDto> login(@Validated @RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    AuthResponseDto authResponseDto = authService.login(loginRequestDto);
+    String refreshToken = jwtTokenProvider.createRefreshToken(authResponseDto.getId(), authResponseDto.getEmail());
     Cookie cookie = getCookie(refreshToken);
     response.addCookie(cookie);
 
-    return ResponseEntity.ok(loginResponseDto);
+    return ResponseEntity.ok(authResponseDto);
   }
 
   @PostMapping("/refresh")
-  public JwtResponseDto refresh(@RequestBody String refreshToken) {
-    return authService.refresh(refreshToken);
+  public ResponseEntity<AuthResponseDto> refresh(@CookieValue("refreshToken") String refreshToken) {
+     AuthResponseDto authResponseDto = authService.refresh(refreshToken);
+
+    return ResponseEntity.ok(authResponseDto);
   }
 
   @PostMapping("/logout")

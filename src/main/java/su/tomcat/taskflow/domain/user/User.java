@@ -28,7 +28,10 @@ public class User {
   @Column(nullable = false)
   private String password;
 
+  @Column(name = "role")
   @ElementCollection
+  @CollectionTable(name = "users_roles")
+  @Enumerated(value = EnumType.STRING)
   private Set<Role> roles;
 
   @Column(name = "user_pic")

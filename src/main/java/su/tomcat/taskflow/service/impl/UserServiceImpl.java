@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public User update(User user) {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    userRepository.update(user);
+    userRepository.save(user);
     return user;
   }
 
@@ -49,22 +49,15 @@ public class UserServiceImpl implements UserService {
     };
 
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    userRepository.create(user);
     Set<Role> roles = Set.of(Role.ROLE_USER);
-    userRepository.insertUserRole(user.getId(), Role.ROLE_USER);
     user.setRoles(roles);
+    userRepository.save(user);
     return user;
   }
 
   @Override
   @Transactional
   public void delete(Long userId) {
-    userRepository.delete(userId);
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  public boolean isTaskOwner(Long userId, Long taskId) {
-   return userRepository.isTaskOwner(userId, taskId);
+    userRepository.deleteById(userId);
   }
 }

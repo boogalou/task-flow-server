@@ -8,7 +8,6 @@ import su.tomcat.taskflow.domain.user.User;
 import su.tomcat.taskflow.service.TaskService;
 import su.tomcat.taskflow.service.UserService;
 import su.tomcat.taskflow.web.dto.task.TaskDto;
-import su.tomcat.taskflow.web.dto.task.TaskResponseDto;
 import su.tomcat.taskflow.web.dto.user.UserDto;
 import su.tomcat.taskflow.web.mappers.TaskMapper;
 import su.tomcat.taskflow.web.mappers.UserMapper;
@@ -17,7 +16,7 @@ import su.tomcat.taskflow.web.validation.OnUpdate;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Validated
@@ -46,14 +45,14 @@ public class UserController {
     userService.delete(id);
   }
 
-  @GetMapping("/{id}tasks")
-  public List<TaskResponseDto> getTasksByUserId(@PathVariable Long id) {
+  @GetMapping("/{id}/tasks")
+  public List<TaskDto> getTasksByUserId(@PathVariable Long id) {
     List<Task> tasks = taskService.getAllByUserId(id);
     return taskMapper.toDto(tasks);
   }
 
   @PostMapping("/{id}/tasks")
-  public TaskResponseDto create(
+  public TaskDto create(
       @PathVariable Long id,
       @Validated(OnCreate.class)
       @RequestBody TaskDto taskDto

@@ -25,6 +25,8 @@ public class UserDto {
 
   private String userPic;
 
+  private String accessToken;
+
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @NotNull(message = "Password is Required", groups = {OnCreate.class, OnUpdate.class})
   private String password;
