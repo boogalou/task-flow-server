@@ -33,6 +33,7 @@ val hibernateValidatorVer = "8.0.1.Final"
 val jakartaValidationVer = "3.1.0"
 val liquibaseVer = "4.29.2"
 val jjwtVer = "0.12.6"
+val springDocVer = "2.6.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springVer")
@@ -47,7 +48,7 @@ dependencies {
 	implementation ("io.jsonwebtoken:jjwt-impl:$jjwtVer")
 	implementation ("io.jsonwebtoken:jjwt-jackson:$jjwtVer")
 
-
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVer")
 	runtimeOnly("org.postgresql:postgresql:$postgresqlVer")
 	implementation("io.github.cdimascio:dotenv-java:$dotenvJavaVer")
 	compileOnly("org.projectlombok:lombok:$lombokVer")
@@ -57,6 +58,8 @@ dependencies {
 	implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVer")
 	implementation("jakarta.validation:jakarta.validation-api:$jakartaValidationVer")
 	implementation("org.liquibase:liquibase-core:$liquibaseVer")
+
+
 
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

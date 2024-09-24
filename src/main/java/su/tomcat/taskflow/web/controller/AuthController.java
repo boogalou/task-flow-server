@@ -1,5 +1,6 @@
 package su.tomcat.taskflow.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import su.tomcat.taskflow.web.mappers.UserMapper;
 import su.tomcat.taskflow.web.security.JwtTokenProvider;
 import su.tomcat.taskflow.web.validation.OnCreate;
 
+@Tag(name = "Auth Controller", description = "Auth API")
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor

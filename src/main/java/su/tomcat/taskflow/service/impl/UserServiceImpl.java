@@ -60,4 +60,8 @@ public class UserServiceImpl implements UserService {
   public void delete(Long userId) {
     userRepository.deleteById(userId);
   }
+
+  public boolean isTaskOwner(Long userId, Long taskId) {
+    return userRepository.isTaskOwner(userId, taskId);
+  }
 }
